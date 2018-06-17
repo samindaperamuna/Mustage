@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <me.a01eg.canyon.mustage.views.FixedAspectRatioFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:aspectRatioHeight="1"
+        app:aspectRatioWidth="1">
+
+        <me.a01eg.canyon.mustage.views.CenterCropVideoView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="false"
+            android:contentDescription="@string/cd_thumbnail"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/sym_def_app_icon" />
+
+        <ImageView
+            android:id="@+id/mute_status"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="false"
+            android:contentDescription="@string/cd_mute"
+            android:src="@drawable/ic_mute_status" />
+
+    </me.a01eg.canyon.mustage.views.FixedAspectRatioFrameLayout>
+
+</LinearLayout>

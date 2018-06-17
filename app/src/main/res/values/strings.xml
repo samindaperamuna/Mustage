@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Mustage</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="cd_mute">Mute</string>
+    <string name="cd_profile_picture">profile_picture</string>
+    <string name="cd_thumbnail">thumbnail</string>
+    <string name="cd_comment">comment</string>
+    <string name="cd_like">like</string>
+    <string name="cd_share">share</string>
+    <string name="menu_rename">Rename</string>
+    <string name="menu_change_photo">Change photo</string>
+    <string name="dialog_hint_nickname">nickname</string>
+    <string name="dialog_rename">Rename</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_rename_title">Profile</string>
+    <string name="dialog_rename_content">Change the user name</string>
+    <string name="hint_add_comment">Add a comment…</string>
+    <string name="menu_add_friend">Add Friend</string>
+    <string name="hint_search_users">Search users…</string>
+    <string name="menu_action_follow">Follow</string>
+    <string name="menu_action_unfollow">Unfollow</string>
+    <string name="report_title">Report the story</string>
+    <string name="report_message">Do you want to report this story and user?</string>
+    <string name="report_send">Send report</string>
+    <string name="report_positive">Report</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_message">Message</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">463667583674080</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb463667583674080</string>
+
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">b4WMRrLk1n04XDWLVgvtiaMnw</string>
+    <string name="twitter_consumer_secret" translatable="false">mjqo8uqbQ074qZB303ZztSeDgrQhgwci6ETdGRabaq0WvxcfZe</string>
+    <string name="button_send">Send</string>
+
+</resources>

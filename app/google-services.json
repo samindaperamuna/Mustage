@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "299943199950",
+    "firebase_url": "https://imagesharing-8e0f8.firebaseio.com",
+    "project_id": "imagesharing-8e0f8",
+    "storage_bucket": "imagesharing-8e0f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299943199950:android:69ea9f7f50511b03",
+        "android_client_info": {
+          "package_name": "me.a01eg.canyon.mustage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299943199950-2fi2drl3pl55n0fdm8i193p84la5j8g8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "299943199950-2fi2drl3pl55n0fdm8i193p84la5j8g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6uJ9HSC1rCR1svYs4myCF3XqOR55hLzk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

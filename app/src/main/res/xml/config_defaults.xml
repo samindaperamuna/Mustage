@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>personal_feed</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>admob_enabled</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>image_quality</key>
+        <value>100</value>
+    </entry>
+    <entry>
+        <key>pref_pagination</key>
+        <value>10</value>
+    </entry>
+</defaultsMap>

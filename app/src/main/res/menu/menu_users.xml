@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.a01eg.canyon.mustage.AccountActivity">
+
+    <item
+        android:id="@+id/action_follow"
+        android:title="@string/menu_action_follow"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_unfollow"
+        android:title="@string/menu_action_unfollow"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_message"
+        android:title="@string/action_message"
+        app:showAsAction="ifRoom" />
+
+</menu>

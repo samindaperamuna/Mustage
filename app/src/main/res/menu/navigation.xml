@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_tab_search"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_camera"
+        android:icon="@drawable/ic_add_photo"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_messages"
+        android:icon="@android:drawable/sym_action_chat"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_tab_profile"
+        android:iconTint="@color/colorPrimaryDark"
+        android:title=""
+        app:showAsAction="always" />
+
+</menu>

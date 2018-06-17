@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.a01eg.canyon.mustage.AccountActivity">
+
+    <item
+        android:id="@+id/action_rename"
+        android:orderInCategory="100"
+        android:title="@string/menu_rename"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_photo"
+        android:orderInCategory="100"
+        android:title="@string/menu_change_photo"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
+        app:showAsAction="never" />
+
+</menu>
