@@ -3,7 +3,6 @@ package me.a01eg.canyon.mustage.model;
 import android.net.Uri;
 import android.text.format.DateUtils;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
@@ -11,6 +10,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import me.a01eg.canyon.mustage.Const;
 
@@ -19,8 +19,12 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 /**
  * Created on 28/04/2017.
  * Copyright by 01eg.me
+ * <p>
+ * <b>
+ * Modified on 19/06/2018.
+ * Author Saminda Peramuna
+ * </b>
  */
-
 public class Story {
 
     private String user;
@@ -28,9 +32,7 @@ public class Story {
     private String video;
     private String time;
     private String message;
-
-    public Story() {
-    }
+    private List<Integer> tags;
 
     public static DatabaseReference recent() {
         return FirebaseDatabase.getInstance().getReference(Const.kDataRecentsKey);
@@ -44,16 +46,21 @@ public class Story {
         return FirebaseDatabase.getInstance().getReference(Const.kDataFavoritesKey).child(userId);
     }
 
-    @SuppressWarnings("VisibleForTests")
-    public static void uploadImageStory(UploadTask uploadTask) {
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+    public static DatabaseReference tags(String postId) {
+        return FirebaseDatabase.getInstance().getReference(Const.kDataPostKey).child(postId).child(Const.kTagKey);
+    }
 
-                Story newStory = new Story();
-                newStory.setUser(User.current().getKey());
-                newStory.setImage(downloadUrl.toString());
+    @SuppressWarnings({"VisibleForTests", "deprecation"})
+    public static void uploadImageStory(UploadTask uploadTask) {
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            Uri downloadUri = taskSnapshot.getDownloadUrl();
+
+            Story newStory = new Story();
+            DatabaseReference userRef = User.current();
+
+            if (userRef != null && downloadUri != null) {
+                newStory.setUser(userRef.getKey());
+                newStory.setImage(downloadUri.toString());
                 newStory.setTime(Const.dateFormatter.format(new Date()));
                 Story.uploadStory(newStory);
             }
@@ -87,6 +94,14 @@ public class Story {
 
     public void setVideo(String video) {
         this.video = video;
+    }
+
+    public List<Integer> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Integer> tags) {
+        this.tags = tags;
     }
 
     @Exclude

@@ -116,6 +116,15 @@
             android:contentDescription="@string/cd_share"
             android:src="@drawable/ic_share" />
 
+        <ImageButton
+            android:id="@+id/btnTag"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/cd_tag"
+            android:src="@drawable/ic_tag" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -130,6 +139,11 @@
             android:src="@drawable/ic_flag_black_24dp" />
 
     </LinearLayout>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/chipContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@android:id/text1"

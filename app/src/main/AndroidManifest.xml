@@ -77,6 +77,12 @@
             android:name=".StoryActivity"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TagActivity"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.a01eg.canyon.mustage.HomeActivity" />
+        </activity>
     </application>
-
 </manifest>

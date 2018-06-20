@@ -2,7 +2,6 @@ package me.a01eg.canyon.mustage.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -21,12 +20,18 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.perf.metrics.AddTrace;
+import com.pchmn.materialchips.ChipView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.a01eg.canyon.mustage.AccountActivity;
 import me.a01eg.canyon.mustage.Analytics;
@@ -35,19 +40,22 @@ import me.a01eg.canyon.mustage.Config;
 import me.a01eg.canyon.mustage.Const;
 import me.a01eg.canyon.mustage.R;
 import me.a01eg.canyon.mustage.model.Story;
+import me.a01eg.canyon.mustage.model.Tag;
 import me.a01eg.canyon.mustage.model.User;
 
 /**
  * Created on 23/05/2017.
  * Copyright by 01eg.me
+ * <p>
+ * <b>
+ * Modified on 17/06/2018.
+ * Author Saminda Peramuna
+ * </b>
  */
+public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPlayer.OnPreparedListener, View.OnTouchListener, View.OnClickListener, ValueEventListener {
 
-public class StoryViewHolder extends RecyclerView.ViewHolder implements
-        MediaPlayer.OnPreparedListener,
-        View.OnTouchListener,
-        View.OnClickListener,
-        ValueEventListener {
     private static final String TAG = StoryViewHolder.class.getSimpleName();
+
     private final ImageView imageView;
     private final VideoView videoView;
     private final TextView messageView;
@@ -57,14 +65,16 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
     private final ImageView muteStatusView;
     private final ImageButton btnLike;
     private final View btnReport;
+    private final FlexboxLayout chipContainer;
 
     private MediaPlayer videoMediaPlayer;
     private Story mStory = null;
     private Boolean isMuted = true;
 
     private DatabaseReference mPostRef;
-    private DatabaseReference mlikeRef;
+    private DatabaseReference mLikeRef;
     private DatabaseReference mUserRef;
+    private List<DatabaseReference> mTagRef;
 
     public StoryViewHolder(View view) {
         super(view);
@@ -91,8 +101,13 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         ImageButton btnShare = view.findViewById(R.id.btn_share);
         btnShare.setOnClickListener(this);
 
+        ImageButton btnTag = view.findViewById(R.id.btnTag);
+        btnTag.setOnClickListener(this);
+
         btnReport = view.findViewById(R.id.btn_report);
         btnReport.setOnClickListener(this);
+
+        chipContainer = view.findViewById(R.id.chipContainer);
     }
 
     @Override
@@ -109,14 +124,24 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
             mPostRef = null;
         }
 
-        if (mlikeRef != null) {
-            mlikeRef.removeEventListener(this);
-            mlikeRef = null;
+        if (mLikeRef != null) {
+            mLikeRef.removeEventListener(this);
+            mLikeRef = null;
         }
 
         if (mUserRef != null) {
             mUserRef.removeEventListener(this);
             mUserRef = null;
+        }
+
+        if (mTagRef != null) {
+            for (DatabaseReference ref : mTagRef) {
+                if (ref != null) {
+                    ref.removeEventListener(this);
+                }
+            }
+
+            mTagRef = null;
         }
     }
 
@@ -201,16 +226,10 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
             muteStatusView.setVisibility(View.INVISIBLE);
             muteStatusView.setSelected(isMuted);
 
-            DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
-                    .crossFade();
-            RequestOptions options = new RequestOptions()
-                    .placeholder(Config.StoryPlaceholder);
+            DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions().crossFade();
+            RequestOptions options = new RequestOptions().placeholder(Config.StoryPlaceholder);
 
-            Glide.with(context)
-                    .load(story.getImage())
-                    .transition(transitionOptions)
-                    .apply(options)
-                    .into(imageView);
+            Glide.with(context).load(story.getImage()).transition(transitionOptions).apply(options).into(imageView);
         }
 
         timeView.setText(story.getTimeAgo());
@@ -219,18 +238,22 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         mUserRef.removeEventListener(this);
         mUserRef.addValueEventListener(this);
 
-        boolean current = mUserRef.getKey().contentEquals(User.current().getKey());
+        DatabaseReference userRef = User.current();
 
-        if (current) {
-            btnReport.setVisibility(View.INVISIBLE);
-        } else {
-            btnReport.setVisibility(View.VISIBLE);
+        if (userRef != null) {
+            boolean current = mUserRef.getKey().contentEquals(userRef.getKey());
+
+            if (current) {
+                btnReport.setVisibility(View.INVISIBLE);
+            } else {
+                btnReport.setVisibility(View.VISIBLE);
+            }
+
+            DatabaseReference likes = FirebaseDatabase.getInstance().getReference().child(Const.kDataLikeKey);
+            mLikeRef = likes.child(mPostRef.getKey()).child(userRef.getKey()).child("liked");
+            mLikeRef.removeEventListener(this);
+            mLikeRef.addValueEventListener(this);
         }
-
-        DatabaseReference likes = FirebaseDatabase.getInstance().getReference().child(Const.kDataLikeKey);
-        mlikeRef = likes.child(mPostRef.getKey()).child(User.current().getKey()).child("liked");
-        mlikeRef.removeEventListener(this);
-        mlikeRef.addValueEventListener(this);
 
         String html = story.getMessage();
         Spanned spanned = null;
@@ -244,6 +267,14 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         }
 
         messageView.setText(spanned);
+
+        mTagRef = new ArrayList<>();
+        if (story.getTags() != null)
+            for (Integer tagId : story.getTags()) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Const.kTagKey).child(tagId.toString());
+                ref.addValueEventListener(this);
+                mTagRef.add(ref);
+            }
     }
 
     /* Actions */
@@ -252,49 +283,52 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_like:
-                onLikeClicked(v);
+                onLikeClicked();
                 break;
             case R.id.btn_comment:
-                onCommentClicked(v);
+                onCommentClicked();
                 break;
             case R.id.btn_share:
-                onShareClicked(v);
+                onShareClicked();
                 break;
             case R.id.user_profile:
-                onProfileClicked(v);
+                onProfileClicked();
                 break;
+            case R.id.btnTag:
+                onTagClicked();
             case R.id.btn_report:
-                onReportClicked(v);
+                onReportClicked();
                 break;
         }
     }
 
-    private void onReportClicked(View v) {
+    private void onTagClicked() {
+
+    }
+
+    private void onReportClicked() {
         final Context context = itemView.getContext();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.report_title);
         builder.setMessage(R.string.report_message);
-        builder.setPositiveButton(R.string.report_positive, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // need to report the user/story
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/html");
-                intent.putExtra(Intent.EXTRA_EMAIL, Config.kReportContactEmail);
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Report the story/user");
-                intent.putExtra(Intent.EXTRA_TEXT, "Please, report the story, with id: "
-                        + mPostRef.toString() + " where user: " + mUserRef.toString());
+        builder.setPositiveButton(R.string.report_positive, (dialog, which) -> {
+            // need to report the user/story
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/html");
+            intent.putExtra(Intent.EXTRA_EMAIL, Config.kReportContactEmail);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Report the story/user");
+            intent.putExtra(Intent.EXTRA_TEXT, "Please, report the story, with id: "
+                    + mPostRef.toString() + " where user: " + mUserRef.toString());
 
-                context.startActivity(Intent.createChooser(intent, context.getString(R.string.report_send)));
-            }
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.report_send)));
         });
 
         builder.setNegativeButton(R.string.dialog_cancel, null);
         builder.create().show();
     }
 
-    private void onProfileClicked(View v) {
+    private void onProfileClicked() {
         // open user activity
         final Context context = itemView.getContext();
         Intent intent = new Intent(context, AccountActivity.class);
@@ -302,7 +336,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         context.startActivity(intent);
     }
 
-    private void onShareClicked(View v) {
+    private void onShareClicked() {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
@@ -319,7 +353,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         context.startActivity(Intent.createChooser(i, "Share URL"));
     }
 
-    private void onCommentClicked(View v) {
+    private void onCommentClicked() {
         // open comments activity
         final Context context = itemView.getContext();
         Intent intent = new Intent(context, CommentsActivity.class);
@@ -327,7 +361,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         context.startActivity(intent);
     }
 
-    private void onLikeClicked(View v) {
+    private void onLikeClicked() {
         boolean isLiked = !btnLike.isSelected();
         final String currentUserKey = User.currentKey();
 
@@ -357,7 +391,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
 
         Activity activity = (Activity) itemView.getContext();
 
-        if(!dataSnapshot.exists() || activity.isDestroyed()) {
+        if (!dataSnapshot.exists() || activity.isDestroyed()) {
             Log.w(TAG, dataSnapshot.getRef().toString() + " not exist!");
             return;
         }
@@ -369,34 +403,44 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements
         }
 
         if (mPostRef != null && ref.equals(mPostRef.toString())) {
-            show(dataSnapshot.getValue(Story.class));
+            Story story = dataSnapshot.getValue(Story.class);
+
+            show(story);
         }
 
         if (mUserRef != null && ref.equals(mUserRef.toString())) {
             User user = dataSnapshot.getValue(User.class);
-            if (user.getName() != null && !user.getName().isEmpty()) {
-                userName.setText(user.getName());
-            } else {
-                userName.setText("Unknown");
-            }
+            if (user != null) {
+                if (user.getName() != null && !user.getName().isEmpty()) {
+                    userName.setText(user.getName());
+                } else {
+                    userName.setText(activity.getString(R.string.unknown));
+                }
 
-            RequestOptions options = new RequestOptions()
-                    .placeholder(Config.ProfilePlaceholder);
+                RequestOptions options = new RequestOptions().placeholder(Config.ProfilePlaceholder);
 
-            if (user.getPhoto() != null && user.getPhoto().length() > 0) {
-
-                Glide.with(activity)
-                        .load(user.getPhoto())
-                        .apply(options)
-                        .into(userImage);
+                if (user.getPhoto() != null && user.getPhoto().length() > 0) {
+                    Glide.with(activity).load(user.getPhoto()).apply(options).into(userImage);
+                }
             }
         }
 
-        if (mlikeRef != null && ref.equals(mlikeRef.toString())) {
+        if (mLikeRef != null && ref.equals(mLikeRef.toString())) {
             Boolean isLiked = dataSnapshot.getValue(Boolean.class);
 
             if (isLiked != null) {
                 btnLike.setSelected(isLiked);
+            }
+        }
+
+        if (mTagRef != null) {
+            for (DatabaseReference dRef : mTagRef) {
+                if (dRef != null && ref.equals(dRef.toString())) {
+                    Tag tag = dataSnapshot.getValue(Tag.class);
+                    ChipView chipView = new ChipView(activity);
+                    chipView.setChip(tag);
+                    chipContainer.addView(chipView);
+                }
             }
         }
     }

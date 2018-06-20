@@ -25,10 +25,23 @@ import me.a01eg.canyon.mustage.model.User;
 
 public class FeedFragment extends Fragment {
 
-    public static final String EXTRA_STORY_ID = "feed.storyid";
+    public static final String EXTRA_STORY_ID = "feed.storyId";
     private RecyclerView mList;
     private RecyclerView.Adapter mAdapter;
     private View emptyView;
+    private RecyclerView.AdapterDataObserver emptyObserver = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            super.onItemRangeInserted(positionStart, itemCount);
+            checkIfEmpty();
+        }
+
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            checkIfEmpty();
+        }
+    };
 
     public FeedFragment() {
         // Required empty public constructor
@@ -54,8 +67,7 @@ public class FeedFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
 
@@ -148,9 +160,9 @@ public class FeedFragment extends Fragment {
     }
 
     void checkIfEmpty() {
-        if(mAdapter != null && emptyView != null) {
+        if (mAdapter != null && emptyView != null) {
 
-            if(mAdapter.getItemCount() == 0) {
+            if (mAdapter.getItemCount() == 0) {
                 emptyView.setVisibility(View.VISIBLE);
                 mList.setVisibility(View.GONE);
             } else {
@@ -159,18 +171,4 @@ public class FeedFragment extends Fragment {
             }
         }
     }
-
-    private RecyclerView.AdapterDataObserver emptyObserver = new RecyclerView.AdapterDataObserver() {
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            super.onItemRangeInserted(positionStart, itemCount);
-            checkIfEmpty();
-        }
-
-        @Override
-        public void onChanged() {
-            super.onChanged();
-            checkIfEmpty();
-        }
-    };
 }

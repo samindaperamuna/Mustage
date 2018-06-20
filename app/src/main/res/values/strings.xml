@@ -10,6 +10,7 @@
     <string name="cd_comment">comment</string>
     <string name="cd_like">like</string>
     <string name="cd_share">share</string>
+    <string name="cd_tag">tag</string>
     <string name="menu_rename">Rename</string>
     <string name="menu_change_photo">Change photo</string>
     <string name="dialog_hint_nickname">nickname</string>
@@ -26,6 +27,7 @@
     <string name="report_message">Do you want to report this story and user?</string>
     <string name="report_send">Send report</string>
     <string name="report_positive">Report</string>
+    <string name="chips_input">Please enter a tag to continue..</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -40,4 +42,5 @@
     <string name="twitter_consumer_secret" translatable="false">mjqo8uqbQ074qZB303ZztSeDgrQhgwci6ETdGRabaq0WvxcfZe</string>
     <string name="button_send">Send</string>
 
+    <string name="unknown">Unknown</string>
 </resources>

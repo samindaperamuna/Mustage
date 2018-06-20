@@ -28,6 +28,7 @@ public final class Const {
     public static final String kDataFavoritesKey = "activity";
     public static final String kChatsKey = "chats";
     public static final String kMessagesKey = "messages";
+    public static final String kTagKey = "tags";
     public static final String kTopicsFeed = "/topics/feed";
     public static final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US);
 }

@@ -41,7 +41,7 @@ public class Chat {
 ////                recent.setName(current.getName());
 ////                recent.setProfile(current.getPhoto());
 ////                recent.setContact(current.getId());
-//                recentRef.setValue(recent);
+//                recentRef.setLabel(recent);
 //            }
 //
 //            @Override
