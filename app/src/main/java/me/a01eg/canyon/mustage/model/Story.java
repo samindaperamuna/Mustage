@@ -32,7 +32,7 @@ public class Story {
     private String video;
     private String time;
     private String message;
-    private List<Integer> tags;
+    private List<String> tags;
 
     public static DatabaseReference recent() {
         return FirebaseDatabase.getInstance().getReference(Const.kDataRecentsKey);
@@ -96,11 +96,11 @@ public class Story {
         this.video = video;
     }
 
-    public List<Integer> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<Integer> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

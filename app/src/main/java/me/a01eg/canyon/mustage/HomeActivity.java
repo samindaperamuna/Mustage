@@ -207,10 +207,10 @@ public class HomeActivity extends AppCompatActivity {
     private void openCamera() {
         Analytics.trackOpenCamera();
 
-        if (BuildConfig.DEBUG) {
-            MediaUtils.openLibrary(this, MediaUtils.REQUEST_IMAGE_PICK);
-        } else {
+//        if (BuildConfig.DEBUG) {
+//            MediaUtils.openLibrary(this, MediaUtils.REQUEST_IMAGE_PICK);
+//        } else {
             MediaUtils.openCamera(this, MediaUtils.REQUEST_IMAGE_CAPTURE);
-        }
+//        }
     }
 }

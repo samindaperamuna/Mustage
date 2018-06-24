@@ -1,8 +1,10 @@
 package me.a01eg.canyon.mustage.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
@@ -25,10 +27,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.perf.metrics.AddTrace;
-import com.pchmn.materialchips.ChipView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +39,7 @@ import me.a01eg.canyon.mustage.CommentsActivity;
 import me.a01eg.canyon.mustage.Config;
 import me.a01eg.canyon.mustage.Const;
 import me.a01eg.canyon.mustage.R;
+import me.a01eg.canyon.mustage.TagActivity;
 import me.a01eg.canyon.mustage.model.Story;
 import me.a01eg.canyon.mustage.model.Tag;
 import me.a01eg.canyon.mustage.model.User;
@@ -81,7 +82,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
 
         imageView = view.findViewById(android.R.id.icon);
         videoView = view.findViewById(R.id.video_view);
-        messageView = view.findViewById(android.R.id.text1);
+        messageView = view.findViewById(R.id.messageTextView);
 
         userImage = view.findViewById(R.id.user_profile);
         userImage.setOnClickListener(this);
@@ -196,6 +197,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
         return true;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @AddTrace(name = "storyView.render")
     private void show(Story story) {
 
@@ -270,8 +272,8 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
 
         mTagRef = new ArrayList<>();
         if (story.getTags() != null)
-            for (Integer tagId : story.getTags()) {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Const.kTagKey).child(tagId.toString());
+            for (String tagId : story.getTags()) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Const.kTagKey).child(tagId);
                 ref.addValueEventListener(this);
                 mTagRef.add(ref);
             }
@@ -296,6 +298,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
                 break;
             case R.id.btnTag:
                 onTagClicked();
+                break;
             case R.id.btn_report:
                 onReportClicked();
                 break;
@@ -303,7 +306,11 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
     }
 
     private void onTagClicked() {
-
+        // open tag activity
+        final Context context = itemView.getContext();
+        Intent intent = new Intent(context, TagActivity.class);
+        intent.putExtra(TagActivity.EXTRA_STORY_KEY, mPostRef.getKey());
+        context.startActivity(intent);
     }
 
     private void onReportClicked() {
@@ -437,9 +444,15 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
             for (DatabaseReference dRef : mTagRef) {
                 if (dRef != null && ref.equals(dRef.toString())) {
                     Tag tag = dataSnapshot.getValue(Tag.class);
-                    ChipView chipView = new ChipView(activity);
-                    chipView.setChip(tag);
-                    chipContainer.addView(chipView);
+
+                    if (tag != null) {
+                        TextView chipView = new TextView(activity);
+                        chipView.setText(String.format("#%s", tag.getLabel()));
+                        chipView.setTextColor(Color.parseColor(tag.getColor()));
+                        chipView.setPadding(0, 0, 10, 0);
+                        chipView.setLinksClickable(true);
+                        chipContainer.addView(chipView);
+                    }
                 }
             }
         }

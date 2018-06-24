@@ -1,10 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+
     repositories {
         google()
-        maven { url 'https://maven.fabric.io/public' }
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {

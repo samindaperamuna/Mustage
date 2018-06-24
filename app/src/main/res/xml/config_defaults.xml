@@ -2,18 +2,18 @@
 <defaultsMap>
     <entry>
         <key>personal_feed</key>
-        <label>false</label>
+        <value>false</value>
     </entry>
     <entry>
         <key>admob_enabled</key>
-        <label>false</label>
+        <value>false</value>
     </entry>
     <entry>
         <key>image_quality</key>
-        <label>100</label>
+        <value>100</value>
     </entry>
     <entry>
         <key>pref_pagination</key>
-        <label>10</label>
+        <value>10</value>
     </entry>
 </defaultsMap>
