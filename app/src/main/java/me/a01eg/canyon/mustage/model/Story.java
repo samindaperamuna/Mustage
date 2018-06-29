@@ -51,7 +51,7 @@ public class Story {
     }
 
     @SuppressWarnings({"VisibleForTests", "deprecation"})
-    public static void uploadImageStory(UploadTask uploadTask) {
+    public static void uploadImageStory(UploadTask uploadTask, String message, List<String> tags) {
         uploadTask.addOnSuccessListener(taskSnapshot -> {
             Uri downloadUri = taskSnapshot.getDownloadUrl();
 
@@ -62,14 +62,18 @@ public class Story {
                 newStory.setUser(userRef.getKey());
                 newStory.setImage(downloadUri.toString());
                 newStory.setTime(Const.dateFormatter.format(new Date()));
+                newStory.setMessage(message);
+                newStory.setTags(tags);
                 Story.uploadStory(newStory);
             }
         });
     }
 
     private static void uploadStory(Story story) {
-        FirebaseDatabase.getInstance().getReference(Const.kDataPostKey).push()
-                .setValue(story);
+        DatabaseReference mPostRef = FirebaseDatabase.getInstance().getReference(Const.kDataPostKey);
+        String id = mPostRef.push().getKey();
+        if (id != null)
+            if (!id.isEmpty()) mPostRef.child(id).setValue(story);
     }
 
     public String getUser() {

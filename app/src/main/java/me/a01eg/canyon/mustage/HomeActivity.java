@@ -10,20 +10,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.perf.metrics.AddTrace;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.a01eg.canyon.mustage.model.Story;
+import me.a01eg.canyon.mustage.model.Tag;
 import me.a01eg.canyon.mustage.views.BottomNavigationViewHelper;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseRemoteConfig config;
+    private int saveState = 0;
+    private BottomNavigationView navigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -58,9 +61,6 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
-    private int saveState = 0;
-    private BottomNavigationView navigation;
-
     private void showSearch() {
         SearchFragment fragment = new SearchFragment();
         getFragmentManager().beginTransaction()
@@ -93,19 +93,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private void loadConfigs() {
         config = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings settings = new FirebaseRemoteConfigSettings.Builder()
-                .build();
+        FirebaseRemoteConfigSettings settings = new FirebaseRemoteConfigSettings.Builder().build();
         config.setConfigSettings(settings);
         config.setDefaults(R.xml.config_defaults);
-        config.fetch(0).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    config.activateFetched();
-                }
-
-                Analytics.trackRemoteConfigLoad(task.isSuccessful());
+        config.fetch(0).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                config.activateFetched();
             }
+
+            Analytics.trackRemoteConfigLoad(task.isSuccessful());
         });
     }
 
@@ -164,7 +160,7 @@ public class HomeActivity extends AppCompatActivity {
             case MediaUtils.REQUEST_IMAGE_CAPTURE: {
                 if (resultCode == RESULT_OK) {
                     final UploadTask uploadTask = MediaUtils.handleImageCapture(data);
-                    Story.uploadImageStory(uploadTask);
+                    Story.uploadImageStory(uploadTask, "", null);
                     showUploadingProgress(uploadTask);
                     showMainFeed();
                 }
@@ -174,8 +170,28 @@ public class HomeActivity extends AppCompatActivity {
             case MediaUtils.REQUEST_IMAGE_PICK: {
                 if (resultCode == RESULT_OK) {
                     final UploadTask uploadTask = MediaUtils.handleImagePick(this, data);
-                    Story.uploadImageStory(uploadTask);
+                    Story.uploadImageStory(uploadTask, "", null);
                     showUploadingProgress(uploadTask);
+                    showMainFeed();
+                }
+                break;
+            }
+
+            case CameraActivity.TAG_CAMERA_ACTION: {
+                if (resultCode == RESULT_OK) {
+                    final UploadTask uploadTask = MediaUtils.handleImagePick(this, data);
+                    String description = data.getStringExtra(CameraActivity.ARG_DESCRIPTION);
+                    List<Tag> tags = (ArrayList<Tag>) data.getSerializableExtra(CameraActivity.ARG_TAGS);
+                    List<String> stringTags = new ArrayList<>();
+                    for (Tag tag : tags) {
+                        Object id = tag.getId();
+                        if (id != null)
+                            stringTags.add(id.toString());
+                    }
+
+                    Story.uploadImageStory(uploadTask, description, stringTags);
+                    showUploadingProgress(uploadTask);
+
                     showMainFeed();
                 }
                 break;
@@ -195,12 +211,7 @@ public class HomeActivity extends AppCompatActivity {
     private void showUploadingProgress(final UploadTask uploadTask) {
         View view = navigation;
         Snackbar.make(view, "Uploading..", Snackbar.LENGTH_SHORT)
-                .setAction("Cancel", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        uploadTask.cancel();
-                    }
-                }).show();
+                .setAction("Cancel", v -> uploadTask.cancel()).show();
     }
 
     @AddTrace(name = "openCamera")
@@ -210,7 +221,10 @@ public class HomeActivity extends AppCompatActivity {
 //        if (BuildConfig.DEBUG) {
 //            MediaUtils.openLibrary(this, MediaUtils.REQUEST_IMAGE_PICK);
 //        } else {
-            MediaUtils.openCamera(this, MediaUtils.REQUEST_IMAGE_CAPTURE);
+//            MediaUtils.openCamera(this, MediaUtils.REQUEST_IMAGE_CAPTURE);
 //        }
+
+        // Load custom camera activity.
+        startActivityForResult(new Intent(this, CameraActivity.class), CameraActivity.TAG_CAMERA_ACTION);
     }
 }

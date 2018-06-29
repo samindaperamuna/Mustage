@@ -29,9 +29,10 @@
     <string name="report_positive">Report</string>
     <string name="chips_input">Please enter a tag to continue..</string>
     <string name="btn_save_tags">Save Tags</string>
+    <string name="img_desc">Description</string>
+    <string name="upload">Upload</string>
+    <string name="upload_title">Upload Post</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_message">Message</string>
 
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->

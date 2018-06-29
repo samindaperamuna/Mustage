@@ -261,6 +261,8 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
         Spanned spanned = null;
 
         if (html != null) {
+            html = html.concat(" : ");
+
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 spanned = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
             } else {

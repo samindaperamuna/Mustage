@@ -9,13 +9,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tylersuehr.chips.Chip;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import me.a01eg.canyon.mustage.Const;
 
-public class Tag extends Chip {
+public class Tag extends Chip implements Serializable {
 
     private String id;
     private String label;
