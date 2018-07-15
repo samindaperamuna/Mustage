@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <me.a01eg.canyon.mustage.views.CircleImageView
+        <com.fifthgen.mustage.views.CircleImageView
             android:id="@+id/user_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -50,13 +50,13 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <me.a01eg.canyon.mustage.views.FixedAspectRatioFrameLayout
+    <com.fifthgen.mustage.views.FixedAspectRatioFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:aspectRatioHeight="1"
         app:aspectRatioWidth="1">
 
-        <me.a01eg.canyon.mustage.views.CenterCropVideoView
+        <com.fifthgen.mustage.views.CenterCropVideoView
             android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -82,7 +82,7 @@
             android:contentDescription="@string/cd_mute"
             android:src="@drawable/ic_mute_status" />
 
-    </me.a01eg.canyon.mustage.views.FixedAspectRatioFrameLayout>
+    </com.fifthgen.mustage.views.FixedAspectRatioFrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

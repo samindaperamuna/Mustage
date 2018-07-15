@@ -8,16 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:299943199950:android:69ea9f7f50511b03",
+        "mobilesdk_app_id": "1:299943199950:android:a19b536b84e5aec2",
         "android_client_info": {
-          "package_name": "me.a01eg.canyon.mustage"
+          "package_name": "com.fifthgen.mustage"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "299943199950-2fi2drl3pl55n0fdm8i193p84la5j8g8.apps.googleusercontent.com",
-          "client_type": 3
-        },
         {
           "client_id": "299943199950-2fi2drl3pl55n0fdm8i193p84la5j8g8.apps.googleusercontent.com",
           "client_type": 3

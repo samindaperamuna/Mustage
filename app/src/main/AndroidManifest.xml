@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.a01eg.canyon.mustage">
+    package="com.fifthgen.mustage">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,7 +22,7 @@
             android:value="@string/facebook_application_id" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name="com.fifthgen.mustage.HomeActivity"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:theme="@style/AppTheme.NoActionBar">
@@ -43,59 +43,58 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AccountActivity"
+            android:name="com.fifthgen.mustage.AccountActivity"
             android:label="@string/title_activity_account"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName="com.fifthgen.mustage.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.a01eg.canyon.mustage.HomeActivity" />
+                android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
         <activity
-            android:name=".CommentsActivity"
-            android:parentActivityName=".HomeActivity">
+            android:name="com.fifthgen.mustage.CommentsActivity"
+            android:parentActivityName="com.fifthgen.mustage.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.a01eg.canyon.mustage.HomeActivity" />
+                android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
 
         <service
-            android:name=".NotificationMessagingService"
+            android:name="com.fifthgen.mustage.NotificationMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".FirebaseIDService"
+            android:name="com.fifthgen.mustage.FirebaseIDService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".MessagesActivity" />
+        <activity android:name="com.fifthgen.mustage.MessagesActivity" />
         <activity
-            android:name=".StoryActivity"
-            android:parentActivityName=".HomeActivity"
+            android:name="com.fifthgen.mustage.StoryActivity"
+            android:parentActivityName="com.fifthgen.mustage.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TagActivity"
-            android:parentActivityName=".HomeActivity">
+            android:name="com.fifthgen.mustage.TagActivity"
+            android:parentActivityName="com.fifthgen.mustage.HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.a01eg.canyon.mustage.HomeActivity" />
+                android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
         <activity
-            android:name=".CameraActivity"
+            android:name="com.fifthgen.mustage.CameraActivity"
             android:label="@string/upload_title"
             android:noHistory="true"
-            android:parentActivityName=".HomeActivity"
-            android:screenOrientation="portrait"
+            android:parentActivityName="com.fifthgen.mustage.HomeActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.a01eg.canyon.mustage.HomeActivity" />
+                android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
     </application>
 

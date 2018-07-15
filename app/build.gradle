@@ -14,7 +14,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
-        applicationId 'me.a01eg.canyon.mustage'
+        applicationId 'com.fifthgen.mustage'
         versionName '2.1.2'
         versionCode 1
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

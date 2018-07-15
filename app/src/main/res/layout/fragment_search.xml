@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="me.a01eg.canyon.mustage.HomeActivity">
+    tools:context="com.fifthgen.mustage.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -26,11 +26,11 @@
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:layout_margin="@dimen/item_padding"
                 android:drawableStart="@drawable/ic_search"
                 android:hint="@string/hint_search_users"
                 android:inputType="text"
-                android:layout_gravity="start"
                 tools:ignore="LabelFor"
                 tools:text="user" />
 
