@@ -10,8 +10,6 @@ public class AccountActivity extends AppCompatActivity {
     public static final String EXTRA_USER_ID = "mustage.userID";
     private AccountFragment fragment;
 
-    /* Activity */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,5 +38,4 @@ public class AccountActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         fragment.onActivityResult(requestCode, resultCode, data);
     }
-
 }

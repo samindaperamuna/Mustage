@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mustage</string>
+    <string name="app_name">Pask</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
@@ -35,6 +35,18 @@
 
     <string name="action_message">Message</string>
 
+    <!-- Settings -->
+    <string name="tag_category">Tag Category</string>
+    <string name="edit_chips_hint"> </string>
+    <string name="edit_info">Info</string>
+    <string name="edit_label">Label</string>
+    <string name="btn_add_tag">Add Tag</string>
+    <string name="edit_color">Color</string>
+    <string name="default_color">#FFCC00</string>
+    <!-- Color picker dialog -->
+    <string name="color_pos">OK</string>
+    <string name="color_neg">Cancel</string>
+
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">463667583674080</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb463667583674080</string>
@@ -43,6 +55,9 @@
     <string name="twitter_consumer_key" translatable="false">b4WMRrLk1n04XDWLVgvtiaMnw</string>
     <string name="twitter_consumer_secret" translatable="false">mjqo8uqbQ074qZB303ZztSeDgrQhgwci6ETdGRabaq0WvxcfZe</string>
     <string name="button_send">Send</string>
+
+    <!-- Main menu -->
+    <string name="settings">Settings</string>
 
     <string name="unknown">Unknown</string>
 </resources>

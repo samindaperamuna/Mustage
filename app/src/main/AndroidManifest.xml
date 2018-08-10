@@ -12,9 +12,9 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="@mipmap/app_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_icon_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -22,7 +22,8 @@
             android:value="@string/facebook_application_id" />
 
         <activity
-            android:name="com.fifthgen.mustage.HomeActivity"
+            android:name=".HomeActivity"
+            android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:theme="@style/AppTheme.NoActionBar">
@@ -38,59 +39,69 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="mustage.01eg.me"
+                    android:host="com.fifthgen.mustage"
                     android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.fifthgen.mustage.AccountActivity"
+            android:name=".AccountActivity"
             android:label="@string/title_activity_account"
-            android:parentActivityName="com.fifthgen.mustage.HomeActivity"
+            android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
         <activity
-            android:name="com.fifthgen.mustage.CommentsActivity"
-            android:parentActivityName="com.fifthgen.mustage.HomeActivity">
+            android:name=".CommentsActivity"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fifthgen.mustage.HomeActivity" />
+        </activity>
+        <activity android:name=".MessagesActivity" />
+        <activity
+            android:name=".StoryActivity"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TagActivity"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fifthgen.mustage.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/upload_title"
+            android:noHistory="true"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
 
         <service
-            android:name="com.fifthgen.mustage.NotificationMessagingService"
+            android:name=".NotificationMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="com.fifthgen.mustage.FirebaseIDService"
+            android:name=".FirebaseIDService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name="com.fifthgen.mustage.MessagesActivity" />
         <activity
-            android:name="com.fifthgen.mustage.StoryActivity"
-            android:parentActivityName="com.fifthgen.mustage.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.fifthgen.mustage.TagActivity"
-            android:parentActivityName="com.fifthgen.mustage.HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fifthgen.mustage.HomeActivity" />
-        </activity>
-        <activity
-            android:name="com.fifthgen.mustage.CameraActivity"
-            android:label="@string/upload_title"
+            android:name=".SettingsActivity"
+            android:label="@string/settings"
             android:noHistory="true"
-            android:parentActivityName="com.fifthgen.mustage.HomeActivity"
+            android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

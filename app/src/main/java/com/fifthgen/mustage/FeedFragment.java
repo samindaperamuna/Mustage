@@ -2,14 +2,18 @@ package com.fifthgen.mustage;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import com.fifthgen.mustage.adapters.PaginationAdapter;
 import com.fifthgen.mustage.adapters.StoryViewHolder;
@@ -96,8 +100,27 @@ public class FeedFragment extends Fragment {
             showFeed();
         }
 
+
+        String versionName = " ";
+        try {
+            PackageInfo packageInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+            versionName += packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(this.getClass().getCanonicalName(), "Cannot read version info.");
+        }
+
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
+        toolbar.setTitle(" " + toolbar.getTitle().toString() + versionName);
+        toolbar.inflateMenu(R.menu.main);
+        toolbar.setOnMenuItemClickListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.action_settings:
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    break;
+            }
+
+            return true;
+        });
 
         // Inflate the layout for this fragment
         return view;

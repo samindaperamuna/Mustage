@@ -144,9 +144,9 @@ public class AccountFragment extends Fragment implements ValueEventListener {
 
         // if user is same as current, show 'edit' menu
         if (userID.equalsIgnoreCase(currentId)) {
-            inflater.inflate(R.menu.menu_account, menu);
+            inflater.inflate(R.menu.account, menu);
         } else {
-            inflater.inflate(R.menu.menu_users, menu);
+            inflater.inflate(R.menu.users, menu);
 
             followItem = menu.findItem(R.id.action_follow);
             unfollowItem = menu.findItem(R.id.action_unfollow);

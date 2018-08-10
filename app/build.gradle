@@ -91,6 +91,7 @@ dependencies {
     // Custom libraries.
     implementation 'com.google.android:flexbox:1.0.0'
     implementation 'com.github.tylersuehr7:chips-input-layout:2.3'
+    implementation 'com.github.skydoves:colorpickerpreference:1.0.4'
 
     // Required only if Facebook login support is required
     // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
