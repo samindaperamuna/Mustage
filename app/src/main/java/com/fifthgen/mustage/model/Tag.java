@@ -5,10 +5,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.fifthgen.chips.Chip;
 import com.fifthgen.mustage.Const;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.tylersuehr.chips.Chip;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -40,10 +40,12 @@ public class Tag extends Chip implements Serializable {
         return true;
     }
 
+    @Override
     public String getColor() {
         return color;
     }
 
+    @Override
     public void setColor(String color) {
         this.color = color;
     }

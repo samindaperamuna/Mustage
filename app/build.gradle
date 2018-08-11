@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation project(':chips-input-layout')
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // Support libraries.
@@ -67,7 +69,7 @@ dependencies {
     // Firebase.
     implementation "com.google.firebase:firebase-core:16.0.1"
     implementation "com.google.firebase:firebase-crash:16.0.1"
-    implementation "com.google.firebase:firebase-messaging:17.0.0"
+    implementation "com.google.firebase:firebase-messaging:17.1.0"
     implementation "com.google.firebase:firebase-config:16.0.0"
     implementation "com.google.firebase:firebase-ads:15.0.1"
     implementation "com.google.firebase:firebase-perf:16.0.0"
@@ -90,7 +92,6 @@ dependencies {
 
     // Custom libraries.
     implementation 'com.google.android:flexbox:1.0.0'
-    implementation 'com.github.tylersuehr7:chips-input-layout:2.3'
     implementation 'com.github.skydoves:colorpickerpreference:1.0.4'
 
     // Required only if Facebook login support is required

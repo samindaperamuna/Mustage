@@ -17,6 +17,9 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.fifthgen.chips.Chip;
+import com.fifthgen.chips.ChipDataSource;
+import com.fifthgen.chips.ChipsInputLayout;
 import com.fifthgen.mustage.model.Tag;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,15 +29,14 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.skydoves.colorpickerpreference.ColorPickerDialog;
-import com.tylersuehr.chips.Chip;
-import com.tylersuehr.chips.ChipDataSource;
-import com.tylersuehr.chips.ChipsInputLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+
+import static android.text.InputType.TYPE_MASK_FLAGS;
 
 public class SettingsActivity extends AppCompatActivity implements ValueEventListener, View.OnClickListener {
 
@@ -46,15 +48,19 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
     private EditText editInfoTextView;
     private EditText editLabelTextView;
     private FrameLayout colorView;
+    private Button addTagButton;
 
     private DatabaseReference mTagRef;
+
+    private boolean isEdit;
+    private String editId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Button addTagButton = findViewById(R.id.addTagButton);
+        addTagButton = findViewById(R.id.addTagButton);
         addTagButton.setOnClickListener(this);
         Button saveTagsButton = findViewById(R.id.saveTagsButton);
         saveTagsButton.setOnClickListener(this);
@@ -64,6 +70,29 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
 
         // Chips input view related initialisations.
         chipsInput = findViewById(R.id.chipsInput);
+
+        // View debug start.
+        chipsInput.setOnChipClickListener(new ChipsInputLayout.OnChipClickListener() {
+            @Override
+            public void onChipClicked(Chip chip) {
+                Tag tag = (Tag) chip;
+
+                // Load tag data onto the editable views.
+                editInfoTextView.setText(tag.getInfo());
+                editLabelTextView.setText(tag.getLabel());
+                editColorTextView.setText(tag.getColor());
+
+                isEdit = true;
+
+                if (tag.getId() != null) {
+                    editId = tag.getId().toString();
+                    addTagButton.setText(getString(R.string.btn_edit_tag));
+                }
+            }
+        });
+        // View debug end.
+
+        chipsInput.setInputType(TYPE_MASK_FLAGS);
         chipsInput.addSelectionObserver(new ChipDataSource.SelectionObserver() {
             @Override
             public void onChipSelected(Chip chip) {
@@ -75,7 +104,6 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
             public void onChipDeselected(Chip chip) {
                 addedTags.add(new Pair<>(false, (Tag) chip));
                 Log.i("Chip", "Chip removed");
-
             }
         });
 
@@ -171,10 +199,16 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
             case R.id.addTagButton:
                 if (validateNewTag()) {
                     Tag tag = new Tag();
+
+                    if (isEdit) {
+                        tag = (Tag) chipsInput.getSelectedChipById(editId);
+                        chipsInput.getSelectedChips().remove(tag);
+                        addTagButton.setText(getString(R.string.btn_add_tag));
+                    }
+
                     tag.setInfo(editInfoTextView.getText().toString());
                     tag.setLabel(editLabelTextView.getText().toString());
                     tag.setColor(editColorTextView.getText().toString());
-
                     chipsInput.addSelectedChip(tag);
                 }
                 break;
@@ -200,7 +234,6 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
     private void saveTags() {
         DatabaseReference tagsRef = Tag.collection();
 
-
         // Run Firebase transaction.
         tagsRef.runTransaction(new Transaction.Handler() {
             @NonNull
@@ -219,7 +252,13 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
 
                     if (entry.first) {
                         // If adding a new entry.
-                        tags.put(tagsRef.push().getKey(), entry.second);
+                        if (entry.second.getId() == null) {
+                            // If there is no ID find by label.
+                            tags.put(tagsRef.push().getKey(), entry.second);
+                        } else {
+                            // If there is an ID (if this is an edit)
+                            tags.put(entry.second.getId().toString(), entry.second);
+                        }
                     } else {
                         // If removing an entry.
                         if (entry.second.getId() == null) {
@@ -235,7 +274,6 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
                         }
                     }
                 }
-
 
                 // Set value and report transaction success.
                 mutableData.setValue(tags);
@@ -255,7 +293,6 @@ public class SettingsActivity extends AppCompatActivity implements ValueEventLis
                 onBackPressed();
             }
         });
-
     }
 
     private boolean validateNewTag() {

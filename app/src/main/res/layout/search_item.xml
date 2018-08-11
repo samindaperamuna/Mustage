@@ -12,7 +12,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:contentDescription="@string/cd_profile_picture"
-        android:src="@mipmap/app_icon_round"
+        android:src="@mipmap/ic_launcher_round"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 

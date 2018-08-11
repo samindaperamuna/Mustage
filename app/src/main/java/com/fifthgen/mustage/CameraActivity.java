@@ -38,14 +38,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fifthgen.chips.Chip;
+import com.fifthgen.chips.ChipsInputLayout;
 import com.fifthgen.mustage.model.Tag;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.tylersuehr.chips.Chip;
-import com.tylersuehr.chips.ChipsInputLayout;
 
 import java.io.File;
 import java.io.FileNotFoundException;

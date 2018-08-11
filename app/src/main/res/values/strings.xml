@@ -41,11 +41,15 @@
     <string name="edit_info">Info</string>
     <string name="edit_label">Label</string>
     <string name="btn_add_tag">Add Tag</string>
+    <string name="btn_edit_tag">Edit Tag</string>
     <string name="edit_color">Color</string>
     <string name="default_color">#FFCC00</string>
     <!-- Color picker dialog -->
     <string name="color_pos">OK</string>
     <string name="color_neg">Cancel</string>
+
+    <!-- Following -->
+    <string name="following_label">Following</string>
 
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">463667583674080</string>

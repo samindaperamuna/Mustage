@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".TagActivity">
 
-    <com.tylersuehr.chips.ChipsInputLayout
+    <com.fifthgen.chips.ChipsInputLayout
         android:id="@+id/chipsInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.tylersuehr.chips.ChipsInputLayout>
+    </com.fifthgen.chips.ChipsInputLayout>
 
     <Button
         android:id="@+id/saveTagsButton"

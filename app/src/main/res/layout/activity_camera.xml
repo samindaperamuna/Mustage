@@ -123,7 +123,7 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.constraint.ConstraintLayout>
 
-        <com.tylersuehr.chips.ChipsInputLayout
+        <com.fifthgen.chips.ChipsInputLayout
             android:id="@+id/chipsInput"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

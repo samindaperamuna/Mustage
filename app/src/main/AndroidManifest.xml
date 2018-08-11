@@ -21,6 +21,21 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_application_id" />
 
+        <service
+            android:name=".NotificationMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".FirebaseIDService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".HomeActivity"
             android:icon="@mipmap/ic_launcher"
@@ -81,22 +96,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fifthgen.mustage.HomeActivity" />
         </activity>
-
-        <service
-            android:name=".NotificationMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".FirebaseIDService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
@@ -106,6 +105,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fifthgen.mustage.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".FollowingActivity"
+            android:label="@string/following_label"
+            android:noHistory="true"
+            android:parentActivityName=".AccountActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fifthgen.mustage.AccountActivity" />
         </activity>
     </application>
 
