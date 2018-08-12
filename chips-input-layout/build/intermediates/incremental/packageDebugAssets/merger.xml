@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/assets"/><source path="/home/saminda/StudioProjects/Mustage/chips-input-layout/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/home/saminda/StudioProjects/Mustage/chips-input-layout/src/debug/assets"/></dataSet></merger>

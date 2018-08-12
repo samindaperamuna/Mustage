@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+	package
+		ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:11-39
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+	android:versionCode
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml:1:1-42
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+uses-sdk
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		ADDED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml
+		INJECTED from /home/saminda/StudioProjects/Mustage/chips-input-layout/src/main/AndroidManifest.xml

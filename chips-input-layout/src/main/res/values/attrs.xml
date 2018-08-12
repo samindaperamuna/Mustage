@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="fillColor" format="color"/>
+        <attr name="borderOverlay" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="MaxHeightScrollView">
+        <attr name="android:maxHeight"/>
+    </declare-styleable>
+
+    <declare-styleable name="ChipsInputLayout">
+        <attr name="android:hint"/>
+        <attr name="android:textColorHint"/>
+        <attr name="android:textColor"/>
+        <attr name="allowCustomChips" format="boolean"/>
+        <attr name="hideKeyboardOnChipClick" format="boolean"/>
+        <attr name="maxRows" format="integer" />
+        <attr name="isEditable" format="boolean" />
+
+        <attr name="chip_showDetails" format="boolean" />
+        <attr name="chip_showAvatar" format="boolean" />
+        <attr name="chip_showDelete" format="boolean" />
+        <attr name="chip_deleteIcon" format="reference" />
+        <attr name="chip_deleteIconColor" format="color" />
+        <attr name="chip_backgroundColor" format="color" />
+        <attr name="chip_textColor" format="color" />
+
+        <attr name="details_deleteIconColor" format="color" />
+        <attr name="details_backgroundColor" format="color" />
+        <attr name="details_textColor" format="color" />
+
+        <attr name="filter_elevation" format="dimension"/>
+        <attr name="filter_backgroundColor" format="color" />
+        <attr name="filter_textColor" format="color" />
+    </declare-styleable>
+</resources>

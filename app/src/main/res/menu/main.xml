@@ -5,8 +5,17 @@
     tools:context=".StoryActivity">
 
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/settings"
-        app:showAsAction="always" />
+        android:id="@+id/action_binocular"
+        android:icon="@drawable/ic_binocular"
+        android:title="@string/binocular"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/action_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/settings"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>
