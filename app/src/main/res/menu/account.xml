@@ -5,18 +5,23 @@
 
     <item
         android:id="@+id/action_rename"
-        android:orderInCategory="100"
+        android:orderInCategory="102"
         android:title="@string/menu_rename"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_photo"
-        android:orderInCategory="100"
+        android:orderInCategory="102"
         android:title="@string/menu_change_photo"
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_following"
+        android:orderInCategory="102"
+        android:title="@string/menu_following"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_logout"
-        android:orderInCategory="100"
+        android:orderInCategory="103"
         android:title="@string/action_logout"
         app:showAsAction="never" />
 
