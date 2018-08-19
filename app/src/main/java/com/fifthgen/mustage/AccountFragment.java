@@ -188,6 +188,11 @@ public class AccountFragment extends Fragment implements ValueEventListener {
                     sendDirectMessage();
                     break;
 
+                case R.id.action_following:
+                    // following
+                    showFollowing();
+                    break;
+
                 case R.id.action_logout: {
                     logout();
                     break;
@@ -196,6 +201,10 @@ public class AccountFragment extends Fragment implements ValueEventListener {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showFollowing() {
+        getActivity().startActivity(new Intent(getActivity(), FollowingActivity.class));
     }
 
     private void sendDirectMessage() {

@@ -60,7 +60,6 @@ public class PreviewViewHolder extends RecyclerView.ViewHolder
         mPostRef.addValueEventListener(this);
 
         imageView.setImageResource(Config.StoryPlaceholder);
-
     }
 
     private void show(Story story) {
