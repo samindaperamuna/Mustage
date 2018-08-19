@@ -116,7 +116,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fifthgen.mustage.AccountActivity" />
         </activity>
-        <activity android:name=".BinocularActivity"></activity>
     </application>
 
 </manifest>

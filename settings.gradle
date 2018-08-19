@@ -1,1 +1,1 @@
-include ':app', ':chips-input-layout'
+include ':app'

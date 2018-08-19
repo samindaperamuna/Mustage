@@ -50,6 +50,7 @@ public class User {
         return FirebaseDatabase.getInstance().getReference(Const.kMessagesKey).child(chat);
     }
 
+    @NonNull
     public static String currentKey() {
         return FirebaseAuth.getInstance().getUid();
     }
