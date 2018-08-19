@@ -32,7 +32,9 @@
                 android:layout_marginStart="100dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/binocular"
-                android:src="@drawable/ic_binocular_light" />
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_binocular" />
         </Toolbar>
 
     </android.support.design.widget.AppBarLayout>

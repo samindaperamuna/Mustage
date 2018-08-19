@@ -1,5 +1,7 @@
 package com.fifthgen.mustage;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
@@ -235,11 +237,8 @@ public class FeedFragment extends Fragment implements ValueEventListener, View.O
     public void onStart() {
         super.onStart();
 
-        String currentUser = User.currentKey();
-        if (currentUser != null) {
-            mUserRef = User.following(currentUser);
-            mUserRef.addValueEventListener(this);
-        }
+        mUserRef = User.following(User.currentKey());
+        mUserRef.addValueEventListener(this);
     }
 
     @Override
@@ -315,10 +314,25 @@ public class FeedFragment extends Fragment implements ValueEventListener, View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.binocularButton:
+                // Animate Binocular into view.
                 if (momentsRecycler.getVisibility() == View.VISIBLE) {
-                    momentsRecycler.setVisibility(View.GONE);
+                    momentsRecycler.animate()
+                            .translationY(0)
+                            .alpha(0.0f)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    momentsRecycler.setVisibility(View.GONE);
+                                }
+                            });
                 } else {
                     momentsRecycler.setVisibility(View.VISIBLE);
+                    momentsRecycler.setAlpha(0.0f);
+                    momentsRecycler.animate()
+                            .translationY(momentsRecycler.getHeight())
+                            .alpha(1.0f)
+                            .setListener(null);
                 }
                 break;
         }
