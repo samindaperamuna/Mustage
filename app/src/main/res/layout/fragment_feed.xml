@@ -34,7 +34,7 @@
                 android:contentDescription="@string/binocular"
                 android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_binocular" />
+                android:src="@drawable/ic_binocular_light" />
         </Toolbar>
 
     </android.support.design.widget.AppBarLayout>

@@ -152,10 +152,6 @@ public class FeedFragment extends Fragment implements ValueEventListener, View.O
                 case R.id.action_settings:
                     startActivity(new Intent(getActivity(), SettingsActivity.class));
                     break;
-                case R.id.action_binocular:
-                    // Show binocular activity.
-                    startActivity(new Intent(getActivity(), BinocularActivity.class));
-                    break;
             }
 
             return true;
@@ -317,7 +313,6 @@ public class FeedFragment extends Fragment implements ValueEventListener, View.O
                 // Animate Binocular into view.
                 if (momentsRecycler.getVisibility() == View.VISIBLE) {
                     momentsRecycler.animate()
-                            .translationY(0)
                             .alpha(0.0f)
                             .setListener(new AnimatorListenerAdapter() {
                                 @Override
@@ -330,7 +325,6 @@ public class FeedFragment extends Fragment implements ValueEventListener, View.O
                     momentsRecycler.setVisibility(View.VISIBLE);
                     momentsRecycler.setAlpha(0.0f);
                     momentsRecycler.animate()
-                            .translationY(momentsRecycler.getHeight())
                             .alpha(1.0f)
                             .setListener(null);
                 }
