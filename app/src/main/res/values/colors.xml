@@ -3,9 +3,11 @@
 <resources>
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#072D2C</color>
+    <color name="colorAccent">#c1c1c1</color>
+
     <color name="border">#33CCCCCC</color>
     <color name="postBackground">#f5f5f5</color>
+
     <color name="red_88">#88ff0000</color>
     <color name="red_33">#33ff0000</color>
     <color name="green_88">#8800ff00</color>

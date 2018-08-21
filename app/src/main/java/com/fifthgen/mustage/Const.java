@@ -20,6 +20,7 @@ public final class Const {
     public static final String kUsersKey = "users";
     public static final String kFollowersKey = "followers";
     public static final String kFollowinsKey = "followings";
+    public static final String kNotifyKey = "notify";
     public static final String kDataRecentsKey = "recents";
     public static final String kDataPostKey = "posts";
     public static final String kDataCommentKey = "comments";

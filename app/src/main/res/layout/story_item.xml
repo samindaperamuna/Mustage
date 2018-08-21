@@ -154,7 +154,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:singleLine="true"
-            tools:text="oleg: has comment here" />
+            android:singleLine="true" />
     </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@+id/commentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="text comment" />
 </LinearLayout>

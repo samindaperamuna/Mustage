@@ -58,7 +58,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
 
     private final ImageView imageView;
     private final VideoView videoView;
-    private final TextView messageView;
+    private final TextView messageTextView;
     private final ImageView userImage;
     private final TextView userName;
     private final TextView timeView;
@@ -81,7 +81,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
 
         imageView = view.findViewById(android.R.id.icon);
         videoView = view.findViewById(R.id.video_view);
-        messageView = view.findViewById(R.id.messageTextView);
+        messageTextView = view.findViewById(R.id.messageTextView);
 
         userImage = view.findViewById(R.id.user_profile);
         userImage.setOnClickListener(this);
@@ -154,7 +154,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
 
         userName.setText(null);
         timeView.setText(null);
-        messageView.setText(null);
+        messageTextView.setText(null);
         imageView.setImageResource(Config.StoryPlaceholder);
         userImage.setImageResource(Config.ProfilePlaceholder);
     }
@@ -260,7 +260,9 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
         Spanned spanned = null;
 
         if (html != null) {
-            html = html.concat(" : ");
+
+            if (!html.equals(""))
+                html = html.concat(" : ");
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 spanned = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
@@ -269,7 +271,7 @@ public class StoryViewHolder extends RecyclerView.ViewHolder implements MediaPla
             }
         }
 
-        messageView.setText(spanned);
+        messageTextView.setText(spanned);
 
         mTagRef = new ArrayList<>();
         if (story.getTags() != null)

@@ -38,6 +38,10 @@ public class User {
         return collection(userId).child(Const.kFollowersKey);
     }
 
+    public static DatabaseReference notify(String userId) {
+        return collection(userId).child(Const.kNotifyKey);
+    }
+
     public static DatabaseReference uploads(String userId) {
         return FirebaseDatabase.getInstance().getReference(Const.kDataUploadsKey).child(userId);
     }

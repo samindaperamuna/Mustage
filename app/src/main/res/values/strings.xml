@@ -51,6 +51,7 @@
 
     <!-- Following -->
     <string name="following_label">Following</string>
+    <string name="empty_following">You are not following anyone.</string>
 
     <!-- Binocular -->
     <string name="view_username_placeholder">Username</string>

@@ -31,7 +31,7 @@
             android:layout_height="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
+            app:srcCompat="@drawable/ic_home" />
 
         <ImageButton
             android:id="@+id/notificationButton"
@@ -39,7 +39,7 @@
             android:layout_height="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_notification" />
+            app:srcCompat="@drawable/ic_notifications" />
 
         <ImageButton
             android:id="@+id/binocularButton"

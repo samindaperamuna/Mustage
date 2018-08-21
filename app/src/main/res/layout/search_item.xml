@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="top"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/item_padding">
 
@@ -25,5 +27,41 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         tools:text="Lorem ipsum" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_home" />
+
+        <ImageButton
+            android:id="@+id/notificationButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_notifications" />
+
+        <ImageButton
+            android:id="@+id/binocularButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:scaleType="fitStart"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_binocular" />
+    </LinearLayout>
 
 </LinearLayout>
