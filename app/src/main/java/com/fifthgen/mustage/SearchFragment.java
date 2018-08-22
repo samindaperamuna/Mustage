@@ -4,6 +4,8 @@ package com.fifthgen.mustage;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fifthgen.mustage.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
@@ -283,6 +286,71 @@ public class SearchFragment extends Fragment implements TextWatcher {
                     getActivity().startActivity(intent);
                     break;
                 case R.id.homeButton:
+                    DatabaseReference followRef = User.following(User.currentKey()).getRef();
+                    DatabaseReference followerRef = User.followers(mUser.getId()).getRef();
+
+                    // Add remove from following list of the logged in user.
+                    followRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            boolean exists = false;
+
+                            if (dataSnapshot.exists()) {
+                                // If user exists remove entry.
+                                if (dataSnapshot.child(mUser.getId()).exists()) {
+                                    exists = true;
+                                    followRef.child(mUser.getId()).removeValue();
+                                    homeButton.setColorFilter(
+                                            ContextCompat.getColor(itemView.getContext(), R.color.colorAccent),
+                                            android.graphics.PorterDuff.Mode.SRC_IN);
+                                }
+                            }
+
+                            // Else add the entry.
+                            if (!exists) {
+                                followRef.child(mUser.getId()).setValue(true);
+                                homeButton.setColorFilter(
+                                        ContextCompat.getColor(itemView.getContext(), R.color.colorPrimary),
+                                        android.graphics.PorterDuff.Mode.SRC_IN);
+                            }
+
+                            followRef.removeEventListener(this);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            Log.e(this.getClass().getName(), "Couldn't add/remove follow.");
+                        }
+                    });
+
+                    // Add remove from the follower list of the following user.
+                    followerRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            boolean exists = false;
+
+                            if (dataSnapshot.exists()) {
+                                // If user exists remove entry.
+                                if (dataSnapshot.child(User.currentKey()).exists()) {
+                                    exists = true;
+                                    followerRef.child(User.currentKey()).removeValue();
+                                }
+                            }
+
+                            if (!exists) {
+                                followerRef.child(User.currentKey()).setValue(true);
+                            }
+
+                            followerRef.removeEventListener(this);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(this.getClass().getName(), "Couldn't add/remove follower.");
+                        }
+                    });
+
                     break;
                 case R.id.binocularButton:
                     break;

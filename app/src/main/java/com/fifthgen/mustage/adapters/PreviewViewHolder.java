@@ -1,5 +1,6 @@
 package com.fifthgen.mustage.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -80,10 +81,16 @@ public class PreviewViewHolder extends RecyclerView.ViewHolder
         RequestOptions options = new RequestOptions()
                 .placeholder(Config.StoryPlaceholder);
 
-        Glide.with(context)
-                .load(story.getImage())
-                .apply(options)
-                .into(imageView);
+        if (context instanceof Activity) {
+            Activity activity = (Activity) context;
+            if (activity.isFinishing()) {
+                return;
+            }
+            Glide.with(context)
+                    .load(story.getImage())
+                    .apply(options)
+                    .into(imageView);
+        }
     }
 
     /* ValueChangeListener */
