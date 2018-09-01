@@ -1,6 +1,5 @@
 package com.fifthgen.mustage;
 
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -43,8 +41,10 @@ public class SearchFragment extends Fragment implements TextWatcher {
     private RecyclerView mList;
     private EditText mEditText;
 
+    /**
+     * Required empty constructor.
+     */
     public SearchFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -78,30 +78,36 @@ public class SearchFragment extends Fragment implements TextWatcher {
                 .limitToLast(10)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         final SearchAdapter adapter = new SearchAdapter();
 
                         for (DataSnapshot item : dataSnapshot.getChildren()) {
                             User user = item.getValue(User.class);
-                            user.setId(item.getKey());
 
-                            // If its the current user get his followings and notify items.
-                            if (user.getId().equals(User.currentKey())) {
-                                GenericTypeIndicator<HashMap<String, Boolean>> type = new GenericTypeIndicator<HashMap<String, Boolean>>() {
-                                };
-                                adapter.mFollowingMap = item.child(Const.kFollowinsKey).getValue(type);
-                                adapter.mNotifyMap = item.child(Const.kNotifyKey).getValue(type);
+                            if (user != null) {
+                                user.setId(item.getKey());
+
+                                // If not the currently logged in user add it to the adapter.
+                                if (!user.getId().equals(User.currentKey())) {
+                                    // If its the current user get his followings and notify items.
+                                    if (user.getId().equals(User.currentKey())) {
+                                        GenericTypeIndicator<HashMap<String, Boolean>> type = new GenericTypeIndicator<HashMap<String, Boolean>>() {
+                                        };
+                                        adapter.mFollowingMap = item.child(Const.kFollowinsKey).getValue(type);
+                                        adapter.mNotifyMap = item.child(Const.kNotifyKey).getValue(type);
+                                    }
+
+                                    adapter.mUsers.add(user);
+                                }
                             }
-
-                            adapter.mUsers.add(user);
                         }
 
                         mList.setAdapter(adapter);
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         Log.d("E", databaseError.getMessage());
                     }
                 });
@@ -134,21 +140,19 @@ public class SearchFragment extends Fragment implements TextWatcher {
         }
     }
 
-    // Methods
-
     private void handleSearch(final String query) {
 
         if (query == null || query.length() == 0) return;
 
         User.collection().orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     final SearchAdapter adapter = new SearchAdapter();
                     for (DataSnapshot item : dataSnapshot.getChildren()) {
                         User user = item.getValue(User.class);
 
-                        if (user != null && user.getName() != null) {
+                        if (user != null && user.getName() != null && !user.getId().equals(User.currentKey())) {
                             // If its the current user get his followings and notify items.
                             if (user.getId().equals(User.currentKey())) {
                                 GenericTypeIndicator<HashMap<String, Boolean>> type = new GenericTypeIndicator<HashMap<String, Boolean>>() {
@@ -171,7 +175,7 @@ public class SearchFragment extends Fragment implements TextWatcher {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("E", databaseError.getMessage());
             }
         });
@@ -185,14 +189,15 @@ public class SearchFragment extends Fragment implements TextWatcher {
         Map<String, Boolean> mFollowingMap;
         Map<String, Boolean> mNotifyMap;
 
+        @NonNull
         @Override
-        public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_item, parent, false);
             return new UserViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(UserViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
             User user = mUsers.get(position);
             Boolean following = false, notify = false;
             if (mFollowingMap != null && mFollowingMap.containsKey(user.getId())) {
@@ -355,6 +360,21 @@ public class SearchFragment extends Fragment implements TextWatcher {
                 case R.id.binocularButton:
                     break;
                 case R.id.notificationButton:
+                    DatabaseReference notifyRef = User.notify(User.currentKey()).getRef();
+                    notifyRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(this.getClass().getName(), "Couldn't add/remove notify.");
+                        }
+                    });
+
                     break;
             }
         }
